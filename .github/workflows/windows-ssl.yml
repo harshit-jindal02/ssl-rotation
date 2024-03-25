@@ -1,0 +1,24 @@
+name: Windows SSL
+
+on:
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Dry run the script'
+        required: true
+        default: 'true'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run ShellScript
+      run: bash server_copy.sh
+      env:
+        GODADDY_SECRET: ${{ secrets.GODADDY_SECRET }}
+        GODADDY_KEY: ${{ secrets.GODADDY_KEY }}
+        WINDOWS_SSH: ${{ secrets.WINDOWS_SSH }}
+        DRY_RUN: ${{ github.event.inputs.dryRun }}
